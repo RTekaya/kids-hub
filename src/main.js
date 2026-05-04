@@ -5,6 +5,8 @@ import { renderStory } from './pages/story.js';
 import { renderGames } from './pages/games.js';
 import { initMemory } from './pages/games/memory.js';
 import { initPatterns } from './pages/games/patterns.js';
+import { initSort } from './pages/games/sort.js';
+import { initSymmetry } from './pages/games/symmetry.js';
 import { renderHeader } from './components/header.js';
 import { renderFooter } from './components/footer.js';
 import { applyLang, getLang, toggleLang, t } from './i18n.js';
@@ -14,6 +16,8 @@ const app = document.getElementById('app');
 const games = {
   memory: initMemory,
   patterns: initPatterns,
+  sort: initSort,
+  symmetry: initSymmetry,
 };
 
 const parseRoute = () => {

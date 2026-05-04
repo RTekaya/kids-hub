@@ -10,6 +10,7 @@ export const stories = [
   {
     id: 'adam',
     order: 1,
+    categories: ['garden'],
     name: { fr: 'Adam', ar: 'آدَم' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le premier homme', ar: 'أَوَّلُ الْبَشَرِ' },
@@ -57,6 +58,7 @@ export const stories = [
   {
     id: 'nuh',
     order: 3,
+    categories: ['water'],
     name: { fr: 'Nûh', ar: 'نُوح' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'L\'arche et le grand déluge', ar: 'السَّفِينَةُ وَالطُّوفَانُ الْعَظِيمُ' },
@@ -104,6 +106,7 @@ export const stories = [
   {
     id: 'ibrahim',
     order: 6,
+    categories: ['desert'],
     name: { fr: 'Ibrâhîm', ar: 'إِبْرَاهِيم' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'L\'ami d\'Allah', ar: 'خَلِيلُ اللَّهِ' },
@@ -155,6 +158,7 @@ export const stories = [
   {
     id: 'yusuf',
     order: 11,
+    categories: ['garden'],
     name: { fr: 'Yûsuf', ar: 'يُوسُف' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le rêve des étoiles', ar: 'حُلْمُ النُّجُومِ' },
@@ -204,6 +208,7 @@ export const stories = [
   {
     id: 'musa',
     order: 15,
+    categories: ['water'],
     name: { fr: 'Mûsâ', ar: 'مُوسَى' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'La mer fendue', ar: 'انْفِلَاقُ الْبَحْرِ' },
@@ -257,6 +262,7 @@ export const stories = [
   {
     id: 'salih',
     order: 5,
+    categories: ['desert'],
     name: { fr: 'Sâlih', ar: 'صَالِح' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'La chamelle d\'Allah', ar: 'نَاقَةُ اللَّهِ' },
@@ -300,6 +306,7 @@ export const stories = [
   {
     id: 'ayyub',
     order: 13,
+    categories: ['garden'],
     name: { fr: 'Ayyûb', ar: 'أَيُّوب' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'L\'épreuve de la patience', ar: 'اِبْتِلَاءُ الصَّبْرِ' },
@@ -345,6 +352,7 @@ export const stories = [
   {
     id: 'yunus',
     order: 21,
+    categories: ['water'],
     name: { fr: 'Yûnus', ar: 'يُونُس' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le ventre de la baleine', ar: 'فِي بَطْنِ الْحُوتِ' },
@@ -390,6 +398,7 @@ export const stories = [
   {
     id: 'dawud',
     order: 17,
+    categories: ['sky'],
     name: { fr: 'Dâwûd', ar: 'دَاوُود' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le berger qui devint roi', ar: 'الرَّاعِي الَّذِي صَارَ مَلِكًا' },
@@ -433,6 +442,7 @@ export const stories = [
   {
     id: 'sulayman',
     order: 18,
+    categories: ['sky'],
     name: { fr: 'Sulaymân', ar: 'سُلَيْمَان' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le roi qui parlait aux animaux', ar: 'الْمَلِكُ الَّذِي يُكَلِّمُ الْحَيَوَانَاتِ' },
@@ -480,6 +490,7 @@ export const stories = [
   {
     id: 'zakariya-yahya',
     order: 22,
+    categories: ['garden'],
     name: { fr: 'Zakariyâ & Yahyâ', ar: 'زَكَرِيَّا وَيَحْيَى' },
     honorific: { fr: 'عليهما السلام', ar: 'عَلَيْهِمَا السَّلَام' },
     title: { fr: 'L\'enfant du miracle', ar: 'وَلَدُ الْمُعْجِزَةِ' },
@@ -525,6 +536,7 @@ export const stories = [
   {
     id: 'isa',
     order: 23,
+    categories: ['sky'],
     name: { fr: 'ʿÎsâ', ar: 'عِيسَى' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le messager de Maryam', ar: 'الْمَسِيحُ ابْنُ مَرْيَمَ' },
@@ -572,6 +584,7 @@ export const stories = [
   {
     id: 'muhammad',
     order: 24,
+    categories: ['desert'],
     name: { fr: 'Muhammad', ar: 'مُحَمَّد' },
     honorific: { fr: 'ﷺ', ar: 'ﷺ' },
     title: { fr: 'Le sceau des prophètes', ar: 'خَاتَمُ الْأَنْبِيَاءِ' },
@@ -623,6 +636,7 @@ export const stories = [
   {
     id: 'idris',
     order: 2,
+    categories: ['sky'],
     name: { fr: 'Idrîs', ar: 'إِدْرِيس' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le prophète qui aimait apprendre', ar: 'النَّبِيُّ الَّذِي أَحَبَّ الْعِلْمَ' },
@@ -662,6 +676,7 @@ export const stories = [
   {
     id: 'hud',
     order: 4,
+    categories: ['desert'],
     name: { fr: 'Hûd', ar: 'هُود' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le peuple des géants', ar: 'قَوْمُ الْعَمَالِقَةِ' },
@@ -705,6 +720,7 @@ export const stories = [
   {
     id: 'lut',
     order: 7,
+    categories: ['desert'],
     name: { fr: 'Lût', ar: 'لُوط' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'La ville renversée', ar: 'الْمَدِينَةُ الْمَقْلُوبَةُ' },
@@ -748,6 +764,7 @@ export const stories = [
   {
     id: 'ismail',
     order: 8,
+    categories: ['desert'],
     name: { fr: 'Ismâʿîl', ar: 'إِسْمَاعِيل' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'L\'enfant fidèle à sa promesse', ar: 'الْغُلَامُ الصَّادِقُ الْوَعْدِ' },
@@ -791,6 +808,7 @@ export const stories = [
   {
     id: 'ishaq',
     order: 9,
+    categories: ['garden'],
     name: { fr: 'Ishâq', ar: 'إِسْحَاق' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'L\'enfant de la bonne nouvelle', ar: 'وَلَدُ الْبُشْرَى' },
@@ -830,6 +848,7 @@ export const stories = [
   {
     id: 'yaqub',
     order: 10,
+    categories: ['garden'],
     name: { fr: 'Yaʿqûb', ar: 'يَعْقُوب' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le père aux douze fils', ar: 'الْأَبُ لِاثْنَيْ عَشَرَ وَلَدًا' },
@@ -873,6 +892,7 @@ export const stories = [
   {
     id: 'shuayb',
     order: 12,
+    categories: ['desert'],
     name: { fr: 'Shouʿayb', ar: 'شُعَيْب' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'L\'orateur des prophètes', ar: 'خَطِيبُ الْأَنْبِيَاءِ' },
@@ -916,6 +936,7 @@ export const stories = [
   {
     id: 'dhul-kifl',
     order: 14,
+    categories: ['garden'],
     name: { fr: 'Dhûl-Kifl', ar: 'ذُو الْكِفْل' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Celui qui tint sa promesse', ar: 'الَّذِي وَفَى بِوَعْدِهِ' },
@@ -953,6 +974,7 @@ export const stories = [
   {
     id: 'harun',
     order: 16,
+    categories: ['desert'],
     name: { fr: 'Hârûn', ar: 'هَارُون' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le frère et l\'ami fidèle', ar: 'الْأَخُ وَالْمُعِينُ الْوَفِيُّ' },
@@ -994,6 +1016,7 @@ export const stories = [
   {
     id: 'ilyas',
     order: 19,
+    categories: ['garden'],
     name: { fr: 'Ilyâs', ar: 'إِلْيَاس' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le combat contre l\'idole Baʿl', ar: 'الْمُوَاجَهَةُ مَعَ صَنَمِ بَعْلٍ' },
@@ -1037,6 +1060,7 @@ export const stories = [
   {
     id: 'al-yasa',
     order: 20,
+    categories: ['garden'],
     name: { fr: 'Al-Yasaʿ', ar: 'الْيَسَع' },
     honorific: { fr: 'عليه السلام', ar: 'عَلَيْهِ السَّلَام' },
     title: { fr: 'Le successeur d\'Ilyâs', ar: 'خَلِيفَةُ إِلْيَاسَ' },

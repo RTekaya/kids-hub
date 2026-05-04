@@ -106,8 +106,7 @@ export const renderGames = (lang) => {
           desc: t(lang, 'sortDesc'),
           icon: sortIcon,
           gradient: 'from-violet-400 to-purple-600',
-          available: false,
-          badge: soon,
+          available: true,
           lang,
         })}
         ${gameTile({
@@ -116,8 +115,7 @@ export const renderGames = (lang) => {
           desc: t(lang, 'symmetryDesc'),
           icon: symmetryIcon,
           gradient: 'from-pink-400 to-rose-600',
-          available: false,
-          badge: soon,
+          available: true,
           lang,
         })}
         ${gameTile({
