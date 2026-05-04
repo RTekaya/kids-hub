@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(124, 192, 232, 0.18), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(212, 162, 76, 0.15), transparent 45%);
+    min-height: 100vh;
+  }
+  [dir='rtl'] {
+    font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  }
+  [dir='rtl'] .arabic-text {
+    line-height: 2;
+    font-size: 1.15rem;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-semibold transition-transform duration-150 active:scale-95;
+  }
+  .btn-primary {
+    @apply btn bg-islam-green text-white shadow-soft hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply btn bg-white/60 text-islam-night hover:bg-white;
+  }
+  .card {
+    @apply rounded-3xl bg-white/80 backdrop-blur shadow-soft p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+  }
+  .chip {
+    @apply inline-block rounded-full bg-sand px-3 py-1 text-sm font-semibold text-islam-night;
+  }
+}
