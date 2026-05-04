@@ -3,19 +3,24 @@ import { shuffle, sample, pick } from '../../games/shuffle.js';
 import { renderConfetti } from '../../games/confetti.js';
 import { t } from '../../i18n.js';
 
-const SETTINGS = {
-  easy: { length: 4, units: [['A', 'B']], symbols: 2, rounds: 5, hideLast: true },
-  medium: { length: 6, units: [['A', 'B'], ['A', 'A', 'B', 'B']], symbols: 3, rounds: 6, hideLast: false },
-  hard: { length: 8, units: [['A', 'A', 'B'], ['A', 'B', 'C'], ['A', 'B', 'B', 'C']], symbols: 3, rounds: 7, hideLast: false },
+const TOTAL_ROUNDS = 8;
+
+// Difficulté progressive : plus on avance, plus la séquence est longue, plus
+// l'unité est complexe, et plus le nombre de symboles différents augmente.
+const roundConfig = (i) => {
+  if (i < 2)  return { length: 4, symbols: 2, units: [['A', 'B']],                                    hideLast: true  };
+  if (i < 4)  return { length: 6, symbols: 2, units: [['A', 'B'], ['A', 'A', 'B', 'B']],              hideLast: false };
+  if (i < 6)  return { length: 6, symbols: 3, units: [['A', 'B', 'C'], ['A', 'A', 'B']],              hideLast: false };
+  return         { length: 8, symbols: 3, units: [['A', 'B', 'C'], ['A', 'B', 'B', 'C']],            hideLast: false };
 };
 
-const generateRound = (difficulty) => {
-  const cfg = SETTINGS[difficulty];
+const generateRound = (i) => {
+  const cfg = roundConfig(i);
   const pool = sample(symbolKeys, cfg.symbols);
   const unit = pick(cfg.units);
   const seq = [];
-  for (let i = 0; i < cfg.length; i++) {
-    const ch = unit[i % unit.length];
+  for (let n = 0; n < cfg.length; n++) {
+    const ch = unit[n % unit.length];
     const idx = ch.charCodeAt(0) - 65;
     seq.push(pool[idx % pool.length]);
   }
@@ -25,45 +30,9 @@ const generateRound = (difficulty) => {
   const correct = seq[hiddenIdx];
   const distractors = sample(pool.filter((s) => s !== correct), Math.min(2, pool.length - 1));
   const extra = symbolKeys.filter((s) => s !== correct && !distractors.includes(s));
-  while (distractors.length < 2 && extra.length) {
-    distractors.push(extra.shift());
-  }
-  return { seq, hiddenIdx, correct, options: shuffle([correct, ...distractors]) };
+  while (distractors.length < 2 && extra.length) distractors.push(extra.shift());
+  return { seq, hiddenIdx, correct, options: shuffle([correct, ...distractors]), length: cfg.length };
 };
-
-const renderDifficultyScreen = (lang) => `
-  <section class="max-w-3xl mx-auto px-4 pt-6 pb-12">
-    <a href="#/games" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
-      ${t(lang, 'backToGames')}
-    </a>
-    <header class="text-center mb-8">
-      <h1 class="font-display text-4xl font-bold text-islam-night ${lang === 'ar' ? 'arabic-text' : ''}">
-        ${t(lang, 'patternsTitle')}
-      </h1>
-      <p class="mt-2 text-lg text-islam-night/70 ${lang === 'ar' ? 'arabic-text' : ''}">
-        ${t(lang, 'patternsSubtitle')}
-      </p>
-    </header>
-
-    <h2 class="font-display text-xl font-semibold text-center mb-4 ${lang === 'ar' ? 'arabic-text' : ''}">
-      ${t(lang, 'chooseDifficulty')}
-    </h2>
-    <div class="grid gap-4 sm:grid-cols-3">
-      <button data-difficulty="easy" class="card text-center p-6 hover:bg-emerald-50">
-        <div class="text-5xl mb-2">😊</div>
-        <div class="font-display text-lg font-bold ${lang === 'ar' ? 'arabic-text' : ''}">${t(lang, 'easy')}</div>
-      </button>
-      <button data-difficulty="medium" class="card text-center p-6 hover:bg-amber-50">
-        <div class="text-5xl mb-2">🤔</div>
-        <div class="font-display text-lg font-bold ${lang === 'ar' ? 'arabic-text' : ''}">${t(lang, 'medium')}</div>
-      </button>
-      <button data-difficulty="hard" class="card text-center p-6 hover:bg-rose-50">
-        <div class="text-5xl mb-2">🔥</div>
-        <div class="font-display text-lg font-bold ${lang === 'ar' ? 'arabic-text' : ''}">${t(lang, 'hard')}</div>
-      </button>
-    </div>
-  </section>
-`;
 
 const cellClasses = 'aspect-square rounded-2xl bg-white shadow-soft flex items-center justify-center p-2';
 
@@ -89,25 +58,23 @@ const renderOptions = (round) => round.options
   .join('');
 
 const renderRoundScreen = (state, lang) => {
-  const cfg = SETTINGS[state.difficulty];
   const round = state.round;
-  const seqCols = cfg.length <= 4 ? 'grid-cols-4' : cfg.length <= 6 ? 'grid-cols-6' : 'grid-cols-4 sm:grid-cols-8';
+  const seqCols = round.length <= 4 ? 'grid-cols-4' : round.length <= 6 ? 'grid-cols-6' : 'grid-cols-4 sm:grid-cols-8';
   return `
-    <section class="max-w-4xl mx-auto px-4 pt-6 pb-12">
-      <div class="flex items-center justify-between gap-3 mb-6">
-        <button data-action="back" class="btn-ghost text-sm">
-          ${t(lang, 'backToGames')}
-        </button>
-        <span class="chip">
-          ${state.roundIndex + 1} / ${cfg.rounds} · ${t(lang, 'patternsScore')}: ${state.score}
-        </span>
+    <section class="max-w-4xl mx-auto px-4 pt-4 pb-12">
+      <div class="flex items-center justify-between gap-2 mb-5 flex-wrap">
+        <a href="#/games" class="btn-ghost text-sm">${t(lang, 'backToGames')}</a>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="chip">${t(lang, 'round')} ${state.roundIndex + 1}/${TOTAL_ROUNDS}</span>
+          <span class="chip">${t(lang, 'patternsScore')}: ${state.score}</span>
+        </div>
       </div>
 
-      <h2 class="font-display text-xl font-semibold text-center mb-4 ${lang === 'ar' ? 'arabic-text' : ''}">
+      <h2 class="font-display text-lg sm:text-xl font-semibold text-center mb-4 ${lang === 'ar' ? 'arabic-text' : ''}">
         ${t(lang, 'patternsSubtitle')}
       </h2>
 
-      <div class="grid ${seqCols} gap-2 sm:gap-3 mb-8 max-w-3xl mx-auto" data-sequence>
+      <div class="grid ${seqCols} gap-2 sm:gap-3 mb-6 max-w-3xl mx-auto" data-sequence>
         ${renderSequence(round)}
       </div>
 
@@ -115,66 +82,60 @@ const renderRoundScreen = (state, lang) => {
         ${renderOptions(round)}
       </div>
 
-      <div class="mt-6 text-center min-h-[2rem]" data-feedback></div>
+      <div class="mt-5 text-center min-h-[2rem]" data-feedback></div>
     </section>
   `;
 };
 
-const renderWinScreen = (state, lang) => {
-  const cfg = SETTINGS[state.difficulty];
-  return `
-    <section class="max-w-3xl mx-auto px-4 pt-10 pb-20 relative">
-      ${renderConfetti(48)}
-      <div class="relative rounded-3xl bg-gradient-to-br from-sky-500 to-blue-700 p-12 shadow-soft text-white text-center">
-        <div class="text-7xl mb-4">⭐</div>
-        <h2 class="font-display text-3xl font-bold mb-3 ${lang === 'ar' ? 'arabic-text' : ''}">
-          ${t(lang, 'patternsCorrect')}
-        </h2>
-        <p class="text-white/90 mb-6 text-xl">
-          ${t(lang, 'patternsScore')}: <strong>${state.score} / ${cfg.rounds}</strong>
-        </p>
-        <div class="flex flex-wrap justify-center gap-3">
-          <button data-action="restart" class="btn bg-white text-blue-700 hover:brightness-105">
-            ↻ ${t(lang, 'memoryRestart')}
-          </button>
-          <button data-action="back" class="btn bg-white/20 text-white hover:bg-white/30">
-            ${t(lang, 'backToGames')}
-          </button>
-        </div>
+const renderWinScreen = (state, lang) => `
+  <section class="max-w-3xl mx-auto px-4 pt-10 pb-20 relative">
+    ${renderConfetti(48)}
+    <div class="relative rounded-3xl bg-gradient-to-br from-sky-500 to-blue-700 p-12 shadow-soft text-white text-center">
+      <div class="text-7xl mb-4">🏆</div>
+      <h2 class="font-display text-3xl font-bold mb-3 ${lang === 'ar' ? 'arabic-text' : ''}">
+        ${t(lang, 'patternsCorrect')}
+      </h2>
+      <p class="text-white/90 mb-6 text-xl">
+        ${t(lang, 'patternsScore')}: <strong>${state.score} / ${TOTAL_ROUNDS}</strong>
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button data-action="restart" class="btn bg-white text-blue-700 hover:brightness-105">
+          ↻ ${t(lang, 'memoryRestart')}
+        </button>
+        <button data-action="back" class="btn bg-white/20 text-white hover:bg-white/30">
+          ${t(lang, 'backToGames')}
+        </button>
       </div>
-    </section>
-  `;
-};
+    </div>
+  </section>
+`;
 
 export const initPatterns = (container, lang) => {
   let state = {
-    phase: 'difficulty',
-    difficulty: null,
+    phase: 'playing',
     roundIndex: 0,
     score: 0,
     round: null,
     locked: false,
   };
 
-  const startGame = (difficulty) => {
+  const start = () => {
     state = {
       phase: 'playing',
-      difficulty,
       roundIndex: 0,
       score: 0,
-      round: generateRound(difficulty),
+      round: generateRound(0),
       locked: false,
     };
     render();
   };
 
   const advanceRound = () => {
-    const cfg = SETTINGS[state.difficulty];
-    if (state.roundIndex + 1 >= cfg.rounds) {
+    if (state.roundIndex + 1 >= TOTAL_ROUNDS) {
       state.phase = 'won';
     } else {
       state.roundIndex += 1;
-      state.round = generateRound(state.difficulty);
+      state.round = generateRound(state.roundIndex);
       state.locked = false;
     }
     render();
@@ -188,7 +149,6 @@ export const initPatterns = (container, lang) => {
       btn.classList.add('feedback-correct');
       btn.style.background = '#dcfce7';
       btn.style.borderColor = '#16a34a';
-      // reveal in sequence
       const seqEl = container.querySelector('[data-sequence]');
       if (seqEl) {
         const slot = seqEl.children[state.round.hiddenIdx];
@@ -219,20 +179,7 @@ export const initPatterns = (container, lang) => {
     }
   };
 
-  const goToDifficulty = () => {
-    state.phase = 'difficulty';
-    render();
-  };
-
   const render = () => {
-    if (state.phase === 'difficulty') {
-      container.innerHTML = renderDifficultyScreen(lang);
-      container.querySelectorAll('[data-difficulty]').forEach((btn) => {
-        btn.addEventListener('click', () => startGame(btn.dataset.difficulty));
-      });
-      return;
-    }
-
     if (state.phase === 'won') {
       container.innerHTML = renderWinScreen(state, lang);
     } else {
@@ -241,12 +188,11 @@ export const initPatterns = (container, lang) => {
         btn.addEventListener('click', () => handleOptionClick(btn.dataset.option, btn));
       });
     }
-
-    const restartBtn = container.querySelector('[data-action="restart"]');
-    if (restartBtn) restartBtn.addEventListener('click', () => startGame(state.difficulty));
-    const backBtn = container.querySelector('[data-action="back"]');
-    if (backBtn) backBtn.addEventListener('click', goToDifficulty);
+    const restart = container.querySelector('[data-action="restart"]');
+    if (restart) restart.addEventListener('click', start);
+    const back = container.querySelector('[data-action="back"]');
+    if (back) back.addEventListener('click', () => { window.location.hash = '#/games'; });
   };
 
-  render();
+  start();
 };

@@ -4,11 +4,14 @@ import { shuffle, sample } from '../../games/shuffle.js';
 import { renderConfetti } from '../../games/confetti.js';
 import { t } from '../../i18n.js';
 
-const DIFFICULTIES = {
-  easy: { pairs: 6, cols: 'grid-cols-3 sm:grid-cols-4' },
-  medium: { pairs: 10, cols: 'grid-cols-4 sm:grid-cols-5' },
-  hard: { pairs: 12, cols: 'grid-cols-4 sm:grid-cols-6' },
-};
+// Niveaux progressifs : nombre de paires + grille mobile (portrait) et desktop.
+const LEVELS = [
+  { pairs: 4,  colsM: 4, rowsM: 2, colsD: 4, rowsD: 2 },  //  8 cartes
+  { pairs: 6,  colsM: 3, rowsM: 4, colsD: 4, rowsD: 3 },  // 12 cartes
+  { pairs: 8,  colsM: 4, rowsM: 4, colsD: 4, rowsD: 4 },  // 16 cartes
+  { pairs: 10, colsM: 4, rowsM: 5, colsD: 5, rowsD: 4 },  // 20 cartes
+  { pairs: 12, colsM: 4, rowsM: 6, colsD: 6, rowsD: 4 },  // 24 cartes
+];
 
 const buildDeck = (pairCount) => {
   const picked = sample(stories, pairCount);
@@ -19,48 +22,11 @@ const buildDeck = (pairCount) => {
   return shuffle(cards);
 };
 
-const renderDifficultyScreen = (lang) => `
-  <section class="max-w-3xl mx-auto px-4 pt-6 pb-12">
-    <a href="#/games" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
-      ${t(lang, 'backToGames')}
-    </a>
-    <header class="text-center mb-8">
-      <h1 class="font-display text-4xl font-bold text-islam-night ${lang === 'ar' ? 'arabic-text' : ''}">
-        ${t(lang, 'memoryTitle')}
-      </h1>
-      <p class="mt-2 text-lg text-islam-night/70 ${lang === 'ar' ? 'arabic-text' : ''}">
-        ${t(lang, 'memorySubtitle')}
-      </p>
-    </header>
-
-    <h2 class="font-display text-xl font-semibold text-center mb-4 ${lang === 'ar' ? 'arabic-text' : ''}">
-      ${t(lang, 'chooseDifficulty')}
-    </h2>
-    <div class="grid gap-4 sm:grid-cols-3">
-      <button data-difficulty="easy" class="card text-center p-6 hover:bg-emerald-50">
-        <div class="text-5xl mb-2">😊</div>
-        <div class="font-display text-lg font-bold ${lang === 'ar' ? 'arabic-text' : ''}">${t(lang, 'easy')}</div>
-        <div class="text-sm text-islam-night/60">6</div>
-      </button>
-      <button data-difficulty="medium" class="card text-center p-6 hover:bg-amber-50">
-        <div class="text-5xl mb-2">🤔</div>
-        <div class="font-display text-lg font-bold ${lang === 'ar' ? 'arabic-text' : ''}">${t(lang, 'medium')}</div>
-        <div class="text-sm text-islam-night/60">10</div>
-      </button>
-      <button data-difficulty="hard" class="card text-center p-6 hover:bg-rose-50">
-        <div class="text-5xl mb-2">🔥</div>
-        <div class="font-display text-lg font-bold ${lang === 'ar' ? 'arabic-text' : ''}">${t(lang, 'hard')}</div>
-        <div class="text-sm text-islam-night/60">12</div>
-      </button>
-    </div>
-  </section>
-`;
-
 const renderCard = (card, idx) => `
-  <div class="flip-card aspect-[4/5]" data-index="${idx}" data-key="${card.key}">
+  <div class="flip-card" data-index="${idx}" data-key="${card.key}">
     <div class="flip-card-inner">
       <div class="flip-card-face flip-card-front bg-gradient-to-br from-islam-green to-emerald-700 text-white shadow-soft">
-        <svg viewBox="0 0 24 24" class="h-12 w-12 opacity-90" fill="currentColor">
+        <svg viewBox="0 0 24 24" class="h-1/2 max-h-12 w-auto opacity-90" fill="currentColor">
           <path d="M12 2l2.6 6.5L22 9l-5.5 4.4L18.5 21 12 17l-6.5 4 2-7.6L2 9l7.4-.5L12 2z"/>
         </svg>
       </div>
@@ -72,53 +38,61 @@ const renderCard = (card, idx) => `
 `;
 
 const renderBoard = (state, lang) => {
-  const diff = DIFFICULTIES[state.difficulty];
+  const lvl = LEVELS[state.levelIndex];
+  const styleVars = `--cols-m:${lvl.colsM};--rows-m:${lvl.rowsM};--cols-d:${lvl.colsD};--rows-d:${lvl.rowsD}`;
   return `
-    <section class="max-w-5xl mx-auto px-4 pt-6 pb-12">
-      <div class="flex items-center justify-between gap-3 mb-4">
-        <button data-action="back" class="btn-ghost text-sm">
-          ${t(lang, 'backToGames')}
-        </button>
-        <div class="flex items-center gap-3">
+    <section class="memory-page max-w-5xl mx-auto px-3 sm:px-4 pt-3 pb-3">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-shrink-0 flex-wrap">
+        <a href="#/games" class="btn-ghost text-sm">${t(lang, 'backToGames')}</a>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="chip">${t(lang, 'level')} ${state.levelIndex + 1}/${LEVELS.length}</span>
           <span class="chip">${t(lang, 'memoryMoves')}: <span data-moves>${state.moves}</span></span>
-          <button data-action="restart" class="btn-ghost text-sm">↻ ${t(lang, 'memoryRestart')}</button>
+          <button data-action="restart" class="btn-ghost text-sm" title="${t(lang, 'memoryRestart')}">↻</button>
         </div>
       </div>
 
-      <div class="grid ${diff.cols} gap-3 sm:gap-4" data-board>
+      <div class="memory-board" style="${styleVars}" data-board>
         ${state.deck.map((c, i) => renderCard(c, i)).join('')}
       </div>
     </section>
   `;
 };
 
-const renderWinScreen = (state, lang) => `
-  <section class="max-w-3xl mx-auto px-4 pt-10 pb-20 relative">
-    ${renderConfetti(48)}
-    <div class="relative rounded-3xl bg-gradient-to-br from-islam-green to-emerald-700 p-12 shadow-soft text-white text-center">
-      <div class="text-7xl mb-4">🎉</div>
-      <h2 class="font-display text-3xl font-bold mb-3 ${lang === 'ar' ? 'arabic-text' : ''}">
-        ${t(lang, 'memoryWin')}
-      </h2>
-      <p class="text-white/90 mb-6">
-        ${t(lang, 'memoryMoves')}: <strong>${state.moves}</strong>
-      </p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <button data-action="restart" class="btn bg-white text-islam-green hover:brightness-105">
-          ↻ ${t(lang, 'memoryRestart')}
-        </button>
-        <button data-action="back" class="btn bg-white/20 text-white hover:bg-white/30">
-          ${t(lang, 'backToGames')}
-        </button>
+const renderLevelCompleteScreen = (state, lang) => {
+  const isLast = state.levelIndex >= LEVELS.length - 1;
+  const heading = isLast
+    ? t(lang, 'allLevelsComplete')
+    : t(lang, 'levelComplete').replace('{n}', String(state.levelIndex + 1));
+  const primaryLabel = isLast ? t(lang, 'memoryRestart') : t(lang, 'nextLevel');
+  const primaryAction = isLast ? 'restart-all' : 'next';
+  return `
+    <section class="max-w-3xl mx-auto px-4 pt-10 pb-20 relative">
+      ${renderConfetti(48)}
+      <div class="relative rounded-3xl bg-gradient-to-br from-islam-green to-emerald-700 p-12 shadow-soft text-white text-center">
+        <div class="text-7xl mb-4">${isLast ? '🏆' : '🎉'}</div>
+        <h2 class="font-display text-3xl font-bold mb-3 ${lang === 'ar' ? 'arabic-text' : ''}">
+          ${heading}
+        </h2>
+        <p class="text-white/90 mb-6">
+          ${t(lang, 'memoryMoves')}: <strong>${state.moves}</strong>
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button data-action="${primaryAction}" class="btn bg-white text-islam-green hover:brightness-105">
+            ${primaryLabel}
+          </button>
+          <button data-action="back" class="btn bg-white/20 text-white hover:bg-white/30">
+            ${t(lang, 'backToGames')}
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
-`;
+    </section>
+  `;
+};
 
 export const initMemory = (container, lang) => {
   let state = {
-    phase: 'difficulty',
-    difficulty: null,
+    phase: 'playing',
+    levelIndex: 0,
     deck: [],
     flipped: [],
     matched: new Set(),
@@ -126,11 +100,11 @@ export const initMemory = (container, lang) => {
     locked: false,
   };
 
-  const startGame = (difficulty) => {
+  const startLevel = (levelIndex) => {
     state = {
       phase: 'playing',
-      difficulty,
-      deck: buildDeck(DIFFICULTIES[difficulty].pairs),
+      levelIndex,
+      deck: buildDeck(LEVELS[levelIndex].pairs),
       flipped: [],
       matched: new Set(),
       moves: 0,
@@ -164,8 +138,8 @@ export const initMemory = (container, lang) => {
         if (bEl) bEl.classList.add('is-matched');
         state.flipped = [];
         if (state.matched.size === state.deck.length) {
-          state.phase = 'won';
-          setTimeout(render, 500);
+          state.phase = 'levelDone';
+          setTimeout(render, 600);
         }
       } else {
         state.locked = true;
@@ -181,34 +155,25 @@ export const initMemory = (container, lang) => {
     }
   };
 
-  const goToDifficulty = () => {
-    state.phase = 'difficulty';
-    render();
-  };
-
   const render = () => {
-    if (state.phase === 'difficulty') {
-      container.innerHTML = renderDifficultyScreen(lang);
-      container.querySelectorAll('[data-difficulty]').forEach((btn) => {
-        btn.addEventListener('click', () => startGame(btn.dataset.difficulty));
-      });
+    if (state.phase === 'levelDone') {
+      container.innerHTML = renderLevelCompleteScreen(state, lang);
+      const next = container.querySelector('[data-action="next"]');
+      if (next) next.addEventListener('click', () => startLevel(state.levelIndex + 1));
+      const restartAll = container.querySelector('[data-action="restart-all"]');
+      if (restartAll) restartAll.addEventListener('click', () => startLevel(0));
+      const back = container.querySelector('[data-action="back"]');
+      if (back) back.addEventListener('click', () => { window.location.hash = '#/games'; });
       return;
     }
 
-    if (state.phase === 'won') {
-      container.innerHTML = renderWinScreen(state, lang);
-    } else {
-      container.innerHTML = renderBoard(state, lang);
-      container.querySelectorAll('.flip-card').forEach((el) => {
-        el.addEventListener('click', () => handleCardClick(Number(el.dataset.index)));
-      });
-    }
-
-    const restartBtn = container.querySelector('[data-action="restart"]');
-    if (restartBtn) restartBtn.addEventListener('click', () => startGame(state.difficulty));
-    const backBtn = container.querySelector('[data-action="back"]');
-    if (backBtn) backBtn.addEventListener('click', goToDifficulty);
+    container.innerHTML = renderBoard(state, lang);
+    container.querySelectorAll('.flip-card').forEach((el) => {
+      el.addEventListener('click', () => handleCardClick(Number(el.dataset.index)));
+    });
+    const restart = container.querySelector('[data-action="restart"]');
+    if (restart) restart.addEventListener('click', () => startLevel(state.levelIndex));
   };
 
-  render();
+  startLevel(0);
 };

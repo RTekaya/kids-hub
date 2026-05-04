@@ -39,9 +39,35 @@
   }
 }
 
+/* Memory — board sizing */
+.memory-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 72px);
+  min-height: 480px;
+}
+.memory-board {
+  display: grid;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  grid-template-columns: repeat(var(--cols-m, 4), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--rows-m, 4), minmax(0, 1fr));
+}
+@media (min-width: 640px) {
+  .memory-board {
+    gap: 0.75rem;
+    grid-template-columns: repeat(var(--cols-d, 4), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows-d, 4), minmax(0, 1fr));
+  }
+}
+
 /* Memory — flip cards */
 .flip-card {
   perspective: 1000px;
+  min-width: 0;
+  min-height: 0;
 }
 .flip-card-inner {
   position: relative;

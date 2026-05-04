@@ -45,6 +45,11 @@ export const ui = {
     hard: 'Difficile',
     chooseDifficulty: 'Choisis ta difficulté',
     start: 'Commencer',
+    level: 'Niveau',
+    nextLevel: 'Niveau suivant →',
+    levelComplete: 'Niveau {n} terminé !',
+    allLevelsComplete: 'Tu as terminé tous les niveaux !',
+    round: 'Manche',
   },
   ar: {
     siteTitle: 'قِصَصُ الْأَنْبِيَاء',
@@ -89,6 +94,11 @@ export const ui = {
     hard: 'صَعْب',
     chooseDifficulty: 'اِخْتَرْ مُسْتَوَى الصُّعُوبَة',
     start: 'اِبْدَأ',
+    level: 'الْمُسْتَوَى',
+    nextLevel: 'الْمُسْتَوَى التَّالِي ←',
+    levelComplete: 'اِنْتَهَى الْمُسْتَوَى {n}!',
+    allLevelsComplete: 'أَنْهَيْتَ كُلَّ الْمُسْتَوَيَاتِ!',
+    round: 'جَوْلَة',
   },
 };
 
