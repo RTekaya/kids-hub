@@ -16,15 +16,15 @@ export const renderStory = (id, lang) => {
     return `
       <section class="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 class="font-display text-3xl font-bold mb-4">${t(lang, 'notFound')}</h1>
-        <a href="#/" class="btn-primary">${t(lang, 'backHome')}</a>
+        <a href="#/stories" class="btn-primary">${t(lang, 'backToStories')}</a>
       </section>
     `;
   }
 
   return `
     <article class="max-w-3xl mx-auto px-4 pt-6 pb-12">
-      <a href="#/" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
-        ${t(lang, 'back')}
+      <a href="#/stories" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
+        ${t(lang, 'backToStories')}
       </a>
 
       <div class="rounded-3xl overflow-hidden shadow-soft bg-gradient-to-br ${story.palette} aspect-[16/9] mb-6">
