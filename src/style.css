@@ -118,6 +118,41 @@
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
 }
 
+/* Maze */
+.maze-board {
+  display: grid;
+  width: min(94vw, 65vh);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  background: #FBEFD4;
+  border-radius: 1rem;
+  padding: 4px;
+  box-shadow: 0 6px 18px rgba(31, 42, 74, 0.08);
+}
+.maze-cell {
+  position: relative;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  font-size: clamp(0.9rem, 4vmin, 1.8rem);
+}
+.maze-cell.wall-n { border-top-color: #1F2A4A; }
+.maze-cell.wall-s { border-bottom-color: #1F2A4A; }
+.maze-cell.wall-e { border-right-color: #1F2A4A; }
+.maze-cell.wall-w { border-left-color: #1F2A4A; }
+.maze-cell.is-goal { background: rgba(63, 142, 92, 0.18); border-radius: 4px; }
+.maze-cell.is-trail::after {
+  content: '';
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: rgba(63, 142, 92, 0.25);
+}
+
 /* Patterns — feedback flash */
 .feedback-correct {
   animation: pulse-green 0.5s ease;

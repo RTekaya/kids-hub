@@ -66,7 +66,6 @@ const mazeIcon = `
 `;
 
 export const renderGames = (lang) => {
-  const soon = t(lang, 'comingSoon');
   return `
     <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
       <a href="#/" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
@@ -124,8 +123,7 @@ export const renderGames = (lang) => {
           desc: t(lang, 'mazeDesc'),
           icon: mazeIcon,
           gradient: 'from-amber-400 to-orange-500',
-          available: false,
-          badge: soon,
+          available: true,
           lang,
         })}
       </div>

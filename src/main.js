@@ -7,6 +7,7 @@ import { initMemory } from './pages/games/memory.js';
 import { initPatterns } from './pages/games/patterns.js';
 import { initSort } from './pages/games/sort.js';
 import { initSymmetry } from './pages/games/symmetry.js';
+import { initMaze } from './pages/games/maze.js';
 import { renderHeader } from './components/header.js';
 import { renderFooter } from './components/footer.js';
 import { applyLang, getLang, toggleLang, t } from './i18n.js';
@@ -18,6 +19,7 @@ const games = {
   patterns: initPatterns,
   sort: initSort,
   symmetry: initSymmetry,
+  maze: initMaze,
 };
 
 const parseRoute = () => {
