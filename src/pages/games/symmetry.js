@@ -24,14 +24,13 @@ const mirrorCol = (size, col) => size - 1 - col;
 
 const renderCell = (size, row, col, opts) => {
   const { isLeft, filled, color, status } = opts;
-  const half = size / 2;
-  const axisBorder = col === half ? 'border-l-2 border-dashed border-islam-gold' : '';
   const cursor = isLeft ? 'cursor-default' : 'cursor-pointer';
   const ringClass = status === 'correct'
     ? 'ring-2 ring-emerald-500'
     : status === 'wrong'
       ? 'ring-2 ring-rose-500'
       : '';
+  const sideTint = isLeft ? 'bg-white/60' : 'bg-white/85';
   const fill = filled
     ? `<span class="absolute inset-1 rounded-md" style="background:${color}"></span>`
     : '';
@@ -40,7 +39,7 @@ const renderCell = (size, row, col, opts) => {
       data-row="${row}"
       data-col="${col}"
       data-side="${isLeft ? 'left' : 'right'}"
-      class="symmetry-cell relative aspect-square rounded-md bg-white/70 hover:bg-white ${axisBorder} ${cursor} transition ${ringClass}"
+      class="symmetry-cell relative aspect-square rounded-md ${sideTint} hover:bg-white ${cursor} transition ${ringClass}"
       ${isLeft ? 'disabled' : ''}
       aria-label="${isLeft ? 'cell-left' : 'cell-right'}-${row}-${col}"
     >${fill}</button>
@@ -80,7 +79,7 @@ const renderBoard = (state, lang) => {
         ${t(lang, 'symmetrySubtitle')}
       </p>
 
-      <div class="mx-auto p-2 rounded-2xl bg-cream/60 shadow-soft" style="max-width:min(90vw, 65vh);">
+      <div class="relative mx-auto p-2 rounded-2xl bg-cream/60 shadow-soft" style="max-width:min(90vw, 65vh);" dir="ltr">
         <div
           class="grid gap-1 sm:gap-1.5"
           style="grid-template-columns: repeat(${lvl.size}, minmax(0, 1fr));"
@@ -88,6 +87,7 @@ const renderBoard = (state, lang) => {
         >
           ${renderGrid(state)}
         </div>
+        <div class="symmetry-axis" aria-hidden="true"></div>
       </div>
 
       <div class="mt-4 text-center min-h-[2rem]" data-feedback>
