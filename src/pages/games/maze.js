@@ -1,10 +1,11 @@
-import { generateMaze, canMove, stepFor } from '../../games/maze-gen.js';
+import { generateMaze, canMove, stepFor, findPath } from '../../games/maze-gen.js';
 import { renderConfetti } from '../../games/confetti.js';
 import { pick } from '../../games/shuffle.js';
 import { MAZE_THEMES } from '../../data/maze-themes.js';
 import { t } from '../../i18n.js';
 
 const LEVEL_SIZES = [5, 7, 9, 11];
+const STEP_MS = 110;
 
 const wallClasses = (walls) => {
   const classes = [];
@@ -36,7 +37,7 @@ const renderBoard = (state, lang) => {
         <a href="#/games" class="btn-ghost text-sm">${t(lang, 'backToGames')}</a>
         <div class="flex items-center gap-2 flex-wrap">
           <span class="chip">${t(lang, 'level')} ${state.levelIndex + 1}/${LEVEL_SIZES.length}</span>
-          <span class="chip">${t(lang, 'memoryMoves')}: ${state.moves}</span>
+          <span class="chip" data-moves-chip>${t(lang, 'memoryMoves')}: <span data-moves>${state.moves}</span></span>
           <button data-action="restart" class="btn-ghost text-sm" title="${t(lang, 'memoryRestart')}">↻</button>
         </div>
       </div>
@@ -45,7 +46,12 @@ const renderBoard = (state, lang) => {
         <span class="mr-1">${theme.char}</span>${theme.title[lang]}<span class="ml-1">${theme.goal}</span>
       </h2>
 
-      <div class="maze-board" style="grid-template-columns: repeat(${size}, minmax(0, 1fr));" data-board dir="ltr">
+      <div
+        class="maze-board"
+        style="grid-template-columns: repeat(${size}, minmax(0, 1fr)); grid-template-rows: repeat(${size}, minmax(0, 1fr));"
+        data-board
+        dir="ltr"
+      >
         ${cells.join('')}
       </div>
 
@@ -91,32 +97,74 @@ export const initMaze = (container, lang) => {
   let state = null;
   let abortCtl = null;
 
+  const cellEl = (r, c) => container.querySelector(`.maze-cell[data-r="${r}"][data-c="${c}"]`);
+
+  // Apply a single step in-place via DOM mutation (no full re-render → grid stays perfectly stable).
+  const applyStep = (fromR, fromC, toR, toC) => {
+    const fromEl = cellEl(fromR, fromC);
+    const toEl = cellEl(toR, toC);
+    if (fromEl) {
+      fromEl.textContent = '';
+      const isStartCell = fromR === 0 && fromC === 0;
+      // The departed cell becomes part of the trail (unless it's the goal — but goal is bottom-right, can't be left)
+      fromEl.classList.add('is-trail');
+      // start cell gets trail too — that's fine
+      void isStartCell;
+    }
+    if (toEl) {
+      toEl.classList.remove('is-trail');
+      const isGoal = toR === state.size - 1 && toC === state.size - 1;
+      toEl.textContent = isGoal ? state.theme.char : state.theme.char;
+      // hide the goal emoji while player stands on it
+      if (isGoal) toEl.classList.remove('is-goal');
+    }
+    state.trail.add(`${fromR}-${fromC}`);
+    state.pos = [toR, toC];
+    state.moves += 1;
+    const movesEl = container.querySelector('[data-moves]');
+    if (movesEl) movesEl.textContent = String(state.moves);
+  };
+
+  const finishLevelIfReached = () => {
+    if (state.pos[0] === state.size - 1 && state.pos[1] === state.size - 1) {
+      state.phase = 'levelDone';
+      setTimeout(render, 350);
+      return true;
+    }
+    return false;
+  };
+
   const move = (dir) => {
-    if (!state || state.phase !== 'playing') return;
+    if (!state || state.phase !== 'playing' || state.locked) return;
     const [r, c] = state.pos;
     if (!canMove(state.grid, r, c, dir)) return;
     const [dr, dc] = stepFor(dir);
-    const nr = r + dr;
-    const nc = c + dc;
-    state.trail.add(`${r}-${c}`);
-    state.pos = [nr, nc];
-    state.moves += 1;
-    if (nr === state.size - 1 && nc === state.size - 1) {
-      state.phase = 'levelDone';
+    applyStep(r, c, r + dr, c + dc);
+    finishLevelIfReached();
+  };
+
+  const animatePath = async (path) => {
+    if (!path || path.length === 0) return;
+    state.locked = true;
+    for (const dir of path) {
+      if (state.phase !== 'playing') break;
+      const [r, c] = state.pos;
+      const [dr, dc] = stepFor(dir);
+      applyStep(r, c, r + dr, c + dc);
+      if (finishLevelIfReached()) {
+        state.locked = false;
+        return;
+      }
+      await new Promise((res) => setTimeout(res, STEP_MS));
     }
-    render();
+    state.locked = false;
   };
 
   const handleCellClick = (r, c) => {
-    if (!state || state.phase !== 'playing') return;
-    const [pr, pc] = state.pos;
-    const dr = r - pr;
-    const dc = c - pc;
-    if (Math.abs(dr) + Math.abs(dc) !== 1) return;
-    if (dr === -1) move('N');
-    else if (dr === 1) move('S');
-    else if (dc === 1) move('E');
-    else if (dc === -1) move('W');
+    if (!state || state.phase !== 'playing' || state.locked) return;
+    const path = findPath(state.grid, state.pos, [r, c]);
+    if (!path || path.length === 0) return;
+    animatePath(path);
   };
 
   const attachGlobalControls = () => {
@@ -150,7 +198,8 @@ export const initMaze = (container, lang) => {
       if (!tch) return;
       const dx = tch.clientX - startX;
       const dy = tch.clientY - startY;
-      if (Math.abs(dx) < 24 && Math.abs(dy) < 24) return;
+      // Only treat as swipe if it's a real gesture (>32px). Otherwise let the click handler take over.
+      if (Math.abs(dx) < 32 && Math.abs(dy) < 32) return;
       if (Math.abs(dx) > Math.abs(dy)) {
         move(dx > 0 ? 'E' : 'W');
       } else {
@@ -170,6 +219,7 @@ export const initMaze = (container, lang) => {
       pos: [0, 0],
       moves: 0,
       trail: new Set(),
+      locked: false,
     };
     render();
     attachGlobalControls();

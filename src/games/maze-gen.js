@@ -49,3 +49,26 @@ export const stepFor = (dir) => {
     default: return [0, 0];
   }
 };
+
+// BFS shortest path from `start` to `end`. Returns array of directions, or null if unreachable.
+export const findPath = (grid, start, end) => {
+  if (start[0] === end[0] && start[1] === end[1]) return [];
+  const visited = new Set([`${start[0]}-${start[1]}`]);
+  const queue = [[start, []]];
+  const dirs = ['N', 'S', 'E', 'W'];
+  while (queue.length > 0) {
+    const [[r, c], path] = queue.shift();
+    for (const dir of dirs) {
+      if (!canMove(grid, r, c, dir)) continue;
+      const [dr, dc] = stepFor(dir);
+      const nr = r + dr;
+      const nc = c + dc;
+      const key = `${nr}-${nc}`;
+      if (visited.has(key)) continue;
+      if (nr === end[0] && nc === end[1]) return [...path, dir];
+      visited.add(key);
+      queue.push([[nr, nc], [...path, dir]]);
+    }
+  }
+  return null;
+};

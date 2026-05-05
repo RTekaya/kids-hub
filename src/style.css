@@ -159,10 +159,14 @@
 .maze-cell.is-trail::after {
   content: '';
   position: absolute;
-  width: 30%;
-  height: 30%;
+  top: 50%;
+  left: 50%;
+  width: 28%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background: rgba(63, 142, 92, 0.25);
+  background: rgba(63, 142, 92, 0.28);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 /* Patterns — feedback flash */

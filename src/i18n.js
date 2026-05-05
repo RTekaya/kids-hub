@@ -70,7 +70,7 @@ export const ui = {
     symmetryHint: 'L\'image de droite doit être le miroir de celle de gauche.',
     symmetryPerfect: 'Parfait, c\'est bien symétrique !',
     symmetryAlmost: 'Presque ! Corrige les cases en rouge.',
-    mazeHint: 'Touche, glisse, ou utilise les flèches du clavier.',
+    mazeHint: 'Touche une case pour t\'y rendre, ou glisse / utilise les flèches.',
   },
   ar: {
     siteTitle: 'قِصَصُ الْأَنْبِيَاء',
@@ -140,7 +140,7 @@ export const ui = {
     symmetryHint: 'يَجِبُ أَنْ تَكُونَ الصُّورَةُ عَلَى الْيَمِينِ مِرْآةً لِلَّتِي عَلَى الْيَسَارِ.',
     symmetryPerfect: 'مُمْتَاز! تَمَاثُلٌ صَحِيحٌ.',
     symmetryAlmost: 'تَقْرِيبًا! صَحِّحِ الْمُرَبَّعَاتِ الْحَمْرَاءَ.',
-    mazeHint: 'اِضْغَطْ أَوْ اِسْحَبْ أَوِ اِسْتَعْمِلِ الْأَسْهُمَ.',
+    mazeHint: 'اِضْغَطْ عَلَى مُرَبَّعٍ لِلذَّهَابِ إِلَيْهِ، أَوِ اِسْحَبْ، أَوِ اِسْتَعْمِلِ الْأَسْهُمَ.',
   },
 };
 
