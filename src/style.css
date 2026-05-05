@@ -118,6 +118,18 @@
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
 }
 
+/* Story TTS — active paragraph */
+.story-paragraph.is-active {
+  background: rgba(63, 142, 92, 0.10);
+  box-shadow: inset 4px 0 0 #3F8E5C;
+}
+[dir='rtl'] .story-paragraph.is-active {
+  box-shadow: inset -4px 0 0 #3F8E5C;
+}
+.story-paragraph:hover {
+  background: rgba(63, 142, 92, 0.05);
+}
+
 /* Symmetry — central mirror axis */
 .symmetry-axis {
   position: absolute;

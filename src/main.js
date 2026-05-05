@@ -1,8 +1,9 @@
 import './style.css';
 import { renderHome } from './pages/home.js';
 import { renderStories } from './pages/stories.js';
-import { renderStory } from './pages/story.js';
+import { renderStory, mountStoryAudio } from './pages/story.js';
 import { renderGames } from './pages/games.js';
+import { cancelAllSpeech } from './audio/reader.js';
 import { initMemory } from './pages/games/memory.js';
 import { initPatterns } from './pages/games/patterns.js';
 import { initSort } from './pages/games/sort.js';
@@ -50,6 +51,7 @@ const renderGameNotFound = (lang) => `
 `;
 
 const renderRoute = () => {
+  cancelAllSpeech();
   const lang = getLang();
   const route = parseRoute();
   const isGame = route.name === 'game';
@@ -70,6 +72,10 @@ const renderRoute = () => {
 
   if (gameInit) {
     gameInit(document.getElementById('game-root'), lang);
+  }
+
+  if (route.name === 'story') {
+    mountStoryAudio(document.querySelector(`[data-story-id="${route.id}"]`), route.id, lang);
   }
 
   window.scrollTo({ top: 0, behavior: 'instant' });

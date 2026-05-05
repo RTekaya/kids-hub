@@ -71,6 +71,13 @@ export const ui = {
     symmetryPerfect: 'Parfait, c\'est bien symétrique !',
     symmetryAlmost: 'Presque ! Corrige les cases en rouge.',
     mazeHint: 'Touche une case pour t\'y rendre, ou glisse / utilise les flèches.',
+    audioListen: 'Écouter',
+    audioPause: 'Pause',
+    audioResume: 'Reprendre',
+    audioStop: 'Arrêter',
+    audioParagraph: 'Paragraphe',
+    audioPaused: 'En pause',
+    audioHint: 'Touche un paragraphe pour démarrer là.',
   },
   ar: {
     siteTitle: 'قِصَصُ الْأَنْبِيَاء',
@@ -141,6 +148,13 @@ export const ui = {
     symmetryPerfect: 'مُمْتَاز! تَمَاثُلٌ صَحِيحٌ.',
     symmetryAlmost: 'تَقْرِيبًا! صَحِّحِ الْمُرَبَّعَاتِ الْحَمْرَاءَ.',
     mazeHint: 'اِضْغَطْ عَلَى مُرَبَّعٍ لِلذَّهَابِ إِلَيْهِ، أَوِ اِسْحَبْ، أَوِ اِسْتَعْمِلِ الْأَسْهُمَ.',
+    audioListen: 'اِسْتَمِعْ',
+    audioPause: 'إِيقَافٌ مُؤَقَّت',
+    audioResume: 'مُتَابَعَة',
+    audioStop: 'إِيقَاف',
+    audioParagraph: 'الْفِقْرَة',
+    audioPaused: 'مُتَوَقِّفٌ مُؤَقَّتًا',
+    audioHint: 'اِضْغَطْ عَلَى فِقْرَةٍ لِبَدْءِ الْقِرَاءَةِ مِنْهَا.',
   },
 };
 
