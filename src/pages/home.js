@@ -37,6 +37,14 @@ const gamesIcon = `
   </svg>
 `;
 
+const learnIcon = `
+  <svg viewBox="0 0 24 24" class="h-24 w-24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2 L2 7 L12 12 L22 7 L12 2 Z"/>
+    <path d="M2 17 L12 22 L22 17"/>
+    <path d="M2 12 L12 17 L22 12"/>
+  </svg>
+`;
+
 export const renderHome = (lang) => `
   <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
     <h1 class="font-display text-4xl sm:text-5xl font-bold text-islam-night">
@@ -48,7 +56,7 @@ export const renderHome = (lang) => `
   </section>
 
   <section class="max-w-5xl mx-auto px-4 pb-12">
-    <div class="grid gap-6 sm:grid-cols-2">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       ${tile({
         href: '#/stories',
         title: t(lang, 'storiesTitle'),
@@ -63,7 +71,14 @@ export const renderHome = (lang) => `
         desc: t(lang, 'gamesDesc'),
         icon: gamesIcon,
         gradient: 'from-amber-400 to-orange-500',
-        badge: t(lang, 'comingSoon'),
+        lang,
+      })}
+      ${tile({
+        href: '#/learn',
+        title: t(lang, 'learnTitle'),
+        desc: t(lang, 'learnDesc'),
+        icon: learnIcon,
+        gradient: 'from-sky-400 to-indigo-600',
         lang,
       })}
     </div>

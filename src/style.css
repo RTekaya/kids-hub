@@ -118,6 +118,76 @@
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0.8; }
 }
 
+/* Vocabulary — flashcard */
+.vocab-card {
+  transition: transform 0.18s ease;
+}
+.vocab-card:active {
+  transform: scale(0.98);
+}
+
+/* Calligraphy — tracing stage */
+.calligraphy-stage {
+  width: min(90vw, 520px);
+  aspect-ratio: 1 / 1;
+}
+.calligraphy-guide {
+  font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  font-size: clamp(8rem, 50vmin, 22rem);
+  line-height: 1;
+  color: #1F2A4A;
+  opacity: 0.13;
+}
+.calligraphy-canvas {
+  touch-action: none;
+  cursor: crosshair;
+  border-radius: 1.5rem;
+}
+
+/* Tangram */
+.tangram-grid {
+  display: grid;
+  width: min(100%, 320px);
+  aspect-ratio: 1 / 1;
+  gap: 0.25rem;
+  padding: 0.4rem;
+  background: rgba(251, 239, 212, 0.6);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(31, 42, 74, 0.06);
+}
+.tangram-cell {
+  position: relative;
+  background: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  min-width: 0;
+  min-height: 0;
+}
+.tangram-empty {
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px dashed #D4A24C;
+  cursor: pointer;
+}
+.tangram-empty:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+.tangram-piece-slot {
+  aspect-ratio: 1 / 1;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
+  box-shadow: 0 2px 6px rgba(31, 42, 74, 0.1);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.tangram-piece-slot:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(31, 42, 74, 0.15);
+}
+
 /* Story TTS — active paragraph */
 .story-paragraph.is-active {
   background: rgba(63, 142, 92, 0.10);

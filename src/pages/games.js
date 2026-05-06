@@ -65,6 +65,15 @@ const mazeIcon = `
   </svg>
 `;
 
+const tangramIcon = `
+  <svg viewBox="0 0 24 24" class="h-20 w-20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M3 3 L21 3 L12 12 Z" fill="currentColor" opacity="0.6"/>
+    <path d="M21 3 L21 21 L12 12 Z" fill="currentColor" opacity="0.4"/>
+    <rect x="3" y="12" width="9" height="9" fill="currentColor" opacity="0.5"/>
+    <path d="M12 12 L21 21 L12 21 Z" fill="currentColor" opacity="0.3"/>
+  </svg>
+`;
+
 export const renderGames = (lang) => {
   return `
     <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
@@ -123,6 +132,15 @@ export const renderGames = (lang) => {
           desc: t(lang, 'mazeDesc'),
           icon: mazeIcon,
           gradient: 'from-amber-400 to-orange-500',
+          available: true,
+          lang,
+        })}
+        ${gameTile({
+          href: '#/games/tangram',
+          title: t(lang, 'tangramTitle'),
+          desc: t(lang, 'tangramDesc'),
+          icon: tangramIcon,
+          gradient: 'from-cyan-400 to-blue-600',
           available: true,
           lang,
         })}

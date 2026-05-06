@@ -1,0 +1,33 @@
+// Les 28 lettres de l'alphabet arabe avec leurs noms en FR (translittération)
+// et en AR. Pour la calligraphie : tracer chaque lettre.
+
+export const ARABIC_LETTERS = [
+  { letter: 'ا', name: { fr: 'Alif',  ar: 'أَلِف'   } },
+  { letter: 'ب', name: { fr: 'Ba',    ar: 'بَاء'   } },
+  { letter: 'ت', name: { fr: 'Ta',    ar: 'تَاء'   } },
+  { letter: 'ث', name: { fr: 'Tha',   ar: 'ثَاء'   } },
+  { letter: 'ج', name: { fr: 'Jim',   ar: 'جِيم'   } },
+  { letter: 'ح', name: { fr: 'Ḥa',    ar: 'حَاء'   } },
+  { letter: 'خ', name: { fr: 'Kha',   ar: 'خَاء'   } },
+  { letter: 'د', name: { fr: 'Dal',   ar: 'دَال'   } },
+  { letter: 'ذ', name: { fr: 'Dhal',  ar: 'ذَال'   } },
+  { letter: 'ر', name: { fr: 'Ra',    ar: 'رَاء'   } },
+  { letter: 'ز', name: { fr: 'Zay',   ar: 'زَاي'   } },
+  { letter: 'س', name: { fr: 'Sin',   ar: 'سِين'   } },
+  { letter: 'ش', name: { fr: 'Shin',  ar: 'شِين'   } },
+  { letter: 'ص', name: { fr: 'Ṣad',   ar: 'صَاد'   } },
+  { letter: 'ض', name: { fr: 'Ḍad',   ar: 'ضَاد'   } },
+  { letter: 'ط', name: { fr: 'Ṭa',    ar: 'طَاء'   } },
+  { letter: 'ظ', name: { fr: 'Ẓa',    ar: 'ظَاء'   } },
+  { letter: 'ع', name: { fr: 'ʿAyn',  ar: 'عَيْن'  } },
+  { letter: 'غ', name: { fr: 'Ghayn', ar: 'غَيْن' } },
+  { letter: 'ف', name: { fr: 'Fa',    ar: 'فَاء'   } },
+  { letter: 'ق', name: { fr: 'Qaf',   ar: 'قَاف'   } },
+  { letter: 'ك', name: { fr: 'Kaf',   ar: 'كَاف'   } },
+  { letter: 'ل', name: { fr: 'Lam',   ar: 'لَام'   } },
+  { letter: 'م', name: { fr: 'Mim',   ar: 'مِيم'   } },
+  { letter: 'ن', name: { fr: 'Nun',   ar: 'نُون'   } },
+  { letter: 'ه', name: { fr: 'Ha',    ar: 'هَاء'   } },
+  { letter: 'و', name: { fr: 'Waw',   ar: 'وَاو'   } },
+  { letter: 'ي', name: { fr: 'Ya',    ar: 'يَاء'   } },
+];
