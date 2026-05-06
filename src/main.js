@@ -1,6 +1,8 @@
 import './style.css';
 import { renderHome } from './pages/home.js';
 import { renderStories } from './pages/stories.js';
+import { renderProphets } from './pages/prophets.js';
+import { renderTales } from './pages/tales.js';
 import { renderStory, mountStoryAudio } from './pages/story.js';
 import { renderGames } from './pages/games.js';
 import { renderLearn } from './pages/learn.js';
@@ -37,6 +39,8 @@ const parseRoute = () => {
   const hash = window.location.hash.replace(/^#\/?/, '');
   if (!hash) return { name: 'home' };
   const [section, id] = hash.split('/');
+  if (section === 'stories' && id === 'prophets') return { name: 'prophets' };
+  if (section === 'stories' && id === 'tales') return { name: 'tales' };
   if (section === 'stories') return { name: 'stories' };
   if (section === 'games' && id) return { name: 'game', id };
   if (section === 'games') return { name: 'games' };
@@ -48,11 +52,13 @@ const parseRoute = () => {
 
 const renderStaticPage = (route, lang) => {
   switch (route.name) {
-    case 'stories': return renderStories(lang);
-    case 'story': return renderStory(route.id, lang);
-    case 'games': return renderGames(lang);
-    case 'learn': return renderLearn(lang);
-    default: return renderHome(lang);
+    case 'stories':  return renderStories(lang);
+    case 'prophets': return renderProphets(lang);
+    case 'tales':    return renderTales(lang);
+    case 'story':    return renderStory(route.id, lang);
+    case 'games':    return renderGames(lang);
+    case 'learn':    return renderLearn(lang);
+    default:         return renderHome(lang);
   }
 };
 

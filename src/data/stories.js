@@ -1095,4 +1095,9 @@ export const stories = [
   },
 ];
 
-export const findStory = (id) => stories.find((s) => s.id === id);
+import { tales } from './tales.js';
+
+export const findStory = (id) =>
+  stories.find((s) => s.id === id) || tales.find((t) => t.id === id) || null;
+
+export const isProphetStory = (story) => story && Object.prototype.hasOwnProperty.call(story, 'honorific');

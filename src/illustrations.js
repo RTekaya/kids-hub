@@ -1246,6 +1246,211 @@ const alYasa = wrap(`
   </g>
 `);
 
+// ─────────────────────────────────────────── Contes pour enfants
+
+// Le chaton et l'oiseau — jardin avec arbre et nid
+const taleCatBird = wrap(`
+  <defs>
+    <linearGradient id="sky-cb" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky-cb)"/>
+  <!-- prairie -->
+  <path d="M0,200 Q100,180 200,195 T400,200 L400,260 L0,260 Z" fill="#86efac"/>
+  <path d="M0,225 Q120,210 240,220 T400,225 L400,260 L0,260 Z" fill="#4ade80"/>
+  <!-- arbre central -->
+  <rect x="195" y="120" width="14" height="80" rx="3" fill="#7c3e1d"/>
+  <circle cx="202" cy="100" r="55" fill="#22c55e"/>
+  <circle cx="178" cy="115" r="32" fill="#16a34a"/>
+  <circle cx="226" cy="115" r="32" fill="#16a34a"/>
+  <!-- nid sur la branche -->
+  <ellipse cx="240" cy="118" rx="14" ry="6" fill="#92400e"/>
+  <ellipse cx="240" cy="115" rx="10" ry="5" fill="#b45309"/>
+  <!-- petit oiseau dans le nid -->
+  <ellipse cx="240" cy="112" rx="6" ry="5" fill="#facc15"/>
+  <circle cx="244" cy="111" r="2" fill="#92400e"/>
+  <!-- chat sur tronc -->
+  <ellipse cx="180" cy="190" rx="18" ry="11" fill="#9ca3af"/>
+  <circle cx="167" cy="184" r="7" fill="#9ca3af"/>
+  <path d="M163,180 L165,176 L167,180 Z M170,180 L172,176 L174,180 Z" fill="#9ca3af"/>
+  <!-- soleil -->
+  <circle cx="340" cy="50" r="20" fill="#fde047"/>
+  <circle cx="340" cy="50" r="13" fill="#facc15"/>
+  <!-- petites fleurs -->
+  <g fill="#f9a8d4"><circle cx="60" cy="225" r="3"/><circle cx="63" cy="222" r="3"/><circle cx="57" cy="222" r="3"/></g>
+  <g fill="#fde68a"><circle cx="320" cy="230" r="3"/><circle cx="323" cy="227" r="3"/><circle cx="317" cy="227" r="3"/></g>
+`);
+
+// L'arbre qui partageait — grand pommier dans la forêt
+const taleSharingTree = wrap(`
+  <defs>
+    <linearGradient id="sky-st" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky-st)"/>
+  <path d="M0,210 Q100,185 200,200 T400,205 L400,260 L0,260 Z" fill="#86efac"/>
+  <!-- arbre principal -->
+  <rect x="185" y="120" width="30" height="100" rx="6" fill="#7c3e1d"/>
+  <circle cx="200" cy="100" r="65" fill="#16a34a"/>
+  <circle cx="160" cy="120" r="40" fill="#15803d"/>
+  <circle cx="240" cy="120" r="40" fill="#15803d"/>
+  <!-- pommes -->
+  <g fill="#ef4444">
+    <circle cx="170" cy="90" r="6"/><circle cx="200" cy="80" r="6"/>
+    <circle cx="225" cy="100" r="6"/><circle cx="180" cy="125" r="6"/>
+    <circle cx="220" cy="135" r="6"/><circle cx="245" cy="115" r="6"/>
+    <circle cx="155" cy="105" r="6"/>
+  </g>
+  <!-- pommes au sol -->
+  <circle cx="120" cy="225" r="7" fill="#ef4444"/>
+  <circle cx="290" cy="225" r="7" fill="#ef4444"/>
+  <!-- silhouettes d'animaux (sans détails) -->
+  <ellipse cx="100" cy="225" rx="10" ry="6" fill="#a78bfa"/>
+  <ellipse cx="310" cy="225" rx="10" ry="6" fill="#fb923c"/>
+`);
+
+// L'abeille et la fleur — pré jaune avec fleur centrale
+const taleBeeFlower = wrap(`
+  <defs>
+    <linearGradient id="sky-bf" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fef9c3"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky-bf)"/>
+  <!-- prairie jaune -->
+  <path d="M0,200 Q100,185 200,195 T400,200 L400,260 L0,260 Z" fill="#fde047"/>
+  <path d="M0,220 Q120,210 240,215 T400,220 L400,260 L0,260 Z" fill="#facc15"/>
+  <!-- soleil -->
+  <circle cx="320" cy="55" r="22" fill="#f59e0b"/>
+  <!-- fleur centrale grande -->
+  <line x1="200" y1="200" x2="200" y2="160" stroke="#16a34a" stroke-width="4"/>
+  <ellipse cx="195" cy="175" rx="6" ry="3" fill="#22c55e" transform="rotate(-30 195 175)"/>
+  <ellipse cx="205" cy="178" rx="6" ry="3" fill="#22c55e" transform="rotate(30 205 178)"/>
+  <circle cx="200" cy="140" r="14" fill="#f9a8d4"/>
+  <circle cx="180" cy="155" r="14" fill="#f472b6"/>
+  <circle cx="220" cy="155" r="14" fill="#f472b6"/>
+  <circle cx="200" cy="170" r="14" fill="#f472b6"/>
+  <circle cx="200" cy="140" r="8" fill="#fbbf24"/>
+  <!-- petites fleurs -->
+  <g fill="#a78bfa"><circle cx="60" cy="215" r="4"/><circle cx="64" cy="211" r="4"/><circle cx="56" cy="211" r="4"/></g>
+  <g fill="#f9a8d4"><circle cx="320" cy="215" r="4"/><circle cx="324" cy="211" r="4"/><circle cx="316" cy="211" r="4"/></g>
+  <!-- abeille -->
+  <ellipse cx="260" cy="120" rx="9" ry="6" fill="#fde047"/>
+  <rect x="252" y="116" width="3" height="8" fill="#1f2937"/>
+  <rect x="259" y="116" width="3" height="8" fill="#1f2937"/>
+  <rect x="266" y="116" width="3" height="8" fill="#1f2937"/>
+  <ellipse cx="256" cy="116" rx="6" ry="3" fill="#e5e7eb" opacity="0.7"/>
+  <ellipse cx="263" cy="116" rx="6" ry="3" fill="#e5e7eb" opacity="0.7"/>
+  <!-- traces de vol -->
+  <path d="M280 130 Q295 125 300 135 Q305 145 285 145" stroke="#1f2937" stroke-width="1" fill="none" stroke-dasharray="2 3"/>
+`);
+
+// Le petit chameau — désert avec dunes et oasis
+const taleLittleCamel = wrap(`
+  <defs>
+    <linearGradient id="sky-lc" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fed7aa"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky-lc)"/>
+  <!-- soleil -->
+  <circle cx="320" cy="60" r="28" fill="#f59e0b"/>
+  <circle cx="320" cy="60" r="20" fill="#fbbf24"/>
+  <!-- dunes -->
+  <path d="M0,200 Q80,170 180,195 T400,180 L400,260 L0,260 Z" fill="#fcd34d"/>
+  <path d="M0,225 Q100,205 200,220 T400,215 L400,260 L0,260 Z" fill="#f59e0b"/>
+  <!-- oasis (palmiers à droite) -->
+  <rect x="345" y="170" width="6" height="40" fill="#7c2d12"/>
+  <ellipse cx="348" cy="165" rx="20" ry="4" fill="#16a34a" transform="rotate(-15 348 165)"/>
+  <ellipse cx="348" cy="165" rx="20" ry="4" fill="#16a34a" transform="rotate(15 348 165)"/>
+  <ellipse cx="348" cy="160" rx="14" ry="3" fill="#15803d"/>
+  <rect x="365" y="180" width="5" height="30" fill="#7c2d12"/>
+  <ellipse cx="367" cy="178" rx="14" ry="3" fill="#16a34a" transform="rotate(-20 367 178)"/>
+  <ellipse cx="367" cy="178" rx="14" ry="3" fill="#16a34a" transform="rotate(20 367 178)"/>
+  <!-- chamelet (silhouette simple) -->
+  <ellipse cx="120" cy="200" rx="22" ry="10" fill="#92400e"/>
+  <path d="M105,193 Q110,182 115,193" fill="#92400e"/>
+  <path d="M125,191 Q130,178 135,191" fill="#92400e"/>
+  <ellipse cx="100" cy="195" rx="6" ry="5" fill="#92400e"/>
+  <rect x="113" y="207" width="3" height="10" fill="#92400e"/>
+  <rect x="125" y="207" width="3" height="10" fill="#92400e"/>
+`);
+
+// La graine qui devint un arbre — coupe terre/ciel avec plant
+const taleSeedTree = wrap(`
+  <defs>
+    <linearGradient id="sky-sd" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky-sd)"/>
+  <!-- soleil -->
+  <circle cx="80" cy="50" r="22" fill="#fbbf24"/>
+  <!-- nuages -->
+  <ellipse cx="280" cy="60" rx="30" ry="10" fill="white" opacity="0.85"/>
+  <ellipse cx="300" cy="55" rx="22" ry="9" fill="white" opacity="0.85"/>
+  <!-- terre -->
+  <rect y="180" width="400" height="80" fill="#a16207"/>
+  <path d="M0,180 Q100,170 200,180 T400,180 L400,200 L0,200 Z" fill="#86efac"/>
+  <!-- arbre adulte -->
+  <rect x="195" y="120" width="14" height="70" rx="3" fill="#7c3e1d"/>
+  <circle cx="202" cy="105" r="40" fill="#16a34a"/>
+  <circle cx="180" cy="115" r="22" fill="#15803d"/>
+  <circle cx="225" cy="115" r="22" fill="#15803d"/>
+  <!-- petits plants à côté pour l'évolution -->
+  <line x1="80" y1="200" x2="80" y2="170" stroke="#16a34a" stroke-width="3"/>
+  <ellipse cx="76" cy="172" rx="6" ry="3" fill="#22c55e"/>
+  <ellipse cx="84" cy="172" rx="6" ry="3" fill="#22c55e"/>
+  <line x1="320" y1="200" x2="320" y2="155" stroke="#16a34a" stroke-width="3"/>
+  <ellipse cx="314" cy="160" rx="8" ry="4" fill="#22c55e"/>
+  <ellipse cx="326" cy="160" rx="8" ry="4" fill="#22c55e"/>
+  <ellipse cx="320" cy="150" rx="10" ry="5" fill="#16a34a"/>
+  <!-- graine sous terre -->
+  <ellipse cx="160" cy="240" rx="6" ry="4" fill="#fde68a"/>
+  <line x1="160" y1="240" x2="160" y2="210" stroke="#fde68a" stroke-width="1" stroke-dasharray="2 2"/>
+`);
+
+// L'étoile timide — ciel nocturne avec étoiles et forêt
+const taleShyStar = wrap(`
+  <defs>
+    <linearGradient id="sky-ss" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky-ss)"/>
+  <!-- lune -->
+  <circle cx="60" cy="55" r="22" fill="#fde047"/>
+  <circle cx="68" cy="50" r="18" fill="url(#sky-ss)"/>
+  <!-- étoiles brillantes -->
+  <g fill="#fde047">
+    <path d="M280 50 L283 58 L291 58 L285 63 L287 71 L280 67 L273 71 L275 63 L269 58 L277 58 Z"/>
+    <path d="M340 90 L342 95 L347 95 L343 98 L345 103 L340 100 L335 103 L337 98 L333 95 L338 95 Z"/>
+    <path d="M150 30 L152 35 L157 35 L153 38 L155 43 L150 40 L145 43 L147 38 L143 35 L148 35 Z"/>
+    <path d="M120 90 L122 95 L127 95 L123 98 L125 103 L120 100 L115 103 L117 98 L113 95 L118 95 Z"/>
+  </g>
+  <!-- petite étoile centrale (Lina) avec halo doux -->
+  <circle cx="200" cy="100" r="14" fill="#fde047" opacity="0.3"/>
+  <path d="M200 88 L202 96 L210 97 L204 102 L206 110 L200 106 L194 110 L196 102 L190 97 L198 96 Z" fill="#fde047"/>
+  <!-- petits points scintillants -->
+  <g fill="white" opacity="0.85">
+    <circle cx="80" cy="120" r="1.2"/><circle cx="220" cy="40" r="1.2"/>
+    <circle cx="360" cy="50" r="1.2"/><circle cx="380" cy="120" r="1.2"/>
+    <circle cx="50" cy="160" r="1.2"/>
+  </g>
+  <!-- forêt en bas -->
+  <path d="M0,200 L20,180 L40,200 L60,170 L80,200 L100,175 L120,200 L140,180 L160,200 L180,175 L200,200 L220,180 L240,200 L260,175 L280,200 L300,180 L320,200 L340,170 L360,200 L380,180 L400,200 L400,260 L0,260 Z" fill="#0f172a"/>
+  <!-- petit chemin -->
+  <path d="M180 240 Q200 230 220 240" stroke="#fde047" stroke-width="1" fill="none" stroke-dasharray="2 3" opacity="0.5"/>
+`);
+
 const map = {
   adam, idris, nuh, hud, salih, ibrahim, lut, ismail, ishaq, yaqub,
   yusuf, shuayb, ayyub, 'dhul-kifl': dhulKifl, musa, harun,
@@ -1253,6 +1458,13 @@ const map = {
   zakariya, isa, muhammad,
   // alias pour l'id composé
   'zakariya-yahya': zakariya,
+  // contes
+  'tale-cat-bird': taleCatBird,
+  'tale-sharing-tree': taleSharingTree,
+  'tale-bee-flower': taleBeeFlower,
+  'tale-little-camel': taleLittleCamel,
+  'tale-seed-tree': taleSeedTree,
+  'tale-shy-star': taleShyStar,
 };
 
 export const getIllustration = (id) => map[id] || '';

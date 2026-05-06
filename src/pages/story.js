@@ -1,4 +1,4 @@
-import { findStory } from '../data/stories.js';
+import { findStory, isProphetStory } from '../data/stories.js';
 import { getIllustration } from '../illustrations.js';
 import { t } from '../i18n.js';
 import { StoryReader, ttsSupported } from '../audio/reader.js';
@@ -40,16 +40,12 @@ export const renderStory = (id, lang) => {
     `;
   }
 
-  return `
-    <article class="max-w-3xl mx-auto px-4 pt-6 pb-12" data-story-id="${id}">
-      <a href="#/stories" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
-        ${t(lang, 'backToStories')}
-      </a>
+  const isProphet = isProphetStory(story);
+  const backHref = isProphet ? '#/stories/prophets' : '#/stories/tales';
+  const backLabel = isProphet ? t(lang, 'backToStories') : t(lang, 'backToTales');
 
-      <div class="rounded-3xl overflow-hidden shadow-soft bg-gradient-to-br ${story.palette} aspect-[16/9] mb-6">
-        ${getIllustration(story.illustration)}
-      </div>
-
+  const header = isProphet
+    ? `
       <header class="mb-2">
         <span class="chip mb-3">${String(story.order).padStart(2, '0')} / ${t(lang, 'siteTitle')}</span>
         <h1 class="font-display text-4xl sm:text-5xl font-bold text-islam-night">
@@ -60,6 +56,29 @@ export const renderStory = (id, lang) => {
           ${story.title[lang]} — <em class="text-islam-night/50">${story.subtitle[lang]}</em>
         </p>
       </header>
+    `
+    : `
+      <header class="mb-2">
+        <h1 class="font-display text-4xl sm:text-5xl font-bold text-islam-night ${lang === 'ar' ? 'arabic-text' : ''}">
+          ${story.title[lang]}
+        </h1>
+        <p class="${lang === 'ar' ? 'arabic-text' : ''} mt-2 text-xl text-islam-night/70">
+          ${story.subtitle[lang]}
+        </p>
+      </header>
+    `;
+
+  return `
+    <article class="max-w-3xl mx-auto px-4 pt-6 pb-12" data-story-id="${id}">
+      <a href="${backHref}" class="inline-flex items-center gap-1 text-sm font-semibold text-islam-night/60 hover:text-islam-green mb-4">
+        ${backLabel}
+      </a>
+
+      <div class="rounded-3xl overflow-hidden shadow-soft bg-gradient-to-br ${story.palette} aspect-[16/9] mb-6">
+        ${getIllustration(story.illustration)}
+      </div>
+
+      ${header}
 
       ${audioBar(lang)}
 
